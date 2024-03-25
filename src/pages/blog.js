@@ -10,7 +10,8 @@ const BlogPage = ({data}) => {
      
      {
         data.allMdx.nodes.map((node) => (
-         <article key={node.id}>
+          <article key={node.id}>
+             <p>{node.frontmatter.category}</p>
            <h2>{node.frontmatter.title}</h2>
             <p>Publicado el : {node.frontmatter.date}</p>
               <p>{node.excerpt}</p>
@@ -24,20 +25,23 @@ const BlogPage = ({data}) => {
  )
 }
 export const query = graphql`
- query {
-   allMdx(sort: { frontmatter: { date: DESC }}) {
-     nodes {
-       frontmatter {
-         date(formatString: "MMMM D, YYYY")
-         title
-       }
-       id
-       excerpt
-     }
-   }
+  query {
+    allMdx(filter: {frontmatter: {category: {eq: "blog"}}}) {
+    nodes {
+      frontmatter {
+        title
+        date(formatString: "DD-MM-YYYY")
+        category
+       
+      }
+      id
+      excerpt
+    }
+  }
  }
+ `
 
-`
+
 
 export const Head = () => <Seo title="Mi Blog de Tecnología" />
 
