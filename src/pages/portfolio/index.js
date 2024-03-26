@@ -1,18 +1,23 @@
 import * as React from 'react'
-import Layout from '../components/layout'
+import Layout from '../../components/layout'
 import { graphql } from 'gatsby'
-import Seo from '../components/seo'
+import { Link } from 'gatsby'
+import Seo from '../../components/seo'
 
 
-const BlogPage = ({data}) => {
+const PortfolioPage = ({data}) => {
  return (
-   <Layout pageTitle="Mis publicaciones">
+   <Layout pageTitle="Mi portfolio">
      
      {
         data.allMdx.nodes.map((node) => (
           <article key={node.id}>
              <p>{node.frontmatter.category}</p>
-           <h2>{node.frontmatter.title}</h2>
+            <h2>
+              <Link to={`/portfolio/${node.frontmatter.slug}`}>
+               {node.frontmatter.title}
+             </Link>
+            </h2>
             <p>Publicado el : {node.frontmatter.date}</p>
               <p>{node.excerpt}</p>
          </article>
@@ -26,10 +31,11 @@ const BlogPage = ({data}) => {
 }
 export const query = graphql`
   query {
-    allMdx(filter: {frontmatter: {category: {eq: "blog"}}}) {
+    allMdx(filter: {frontmatter: {category: {eq: "portfolio"}}}) {
     nodes {
       frontmatter {
         title
+        slug
         date(formatString: "DD-MM-YYYY")
         category
        
@@ -43,7 +49,7 @@ export const query = graphql`
 
 
 
-export const Head = () => <Seo title="Mi Blog de Tecnología" />
+export const Head = () => <Seo title="Mi Portfolio de desarrollo" />
 
 
-export default BlogPage
+export default PortfolioPage
