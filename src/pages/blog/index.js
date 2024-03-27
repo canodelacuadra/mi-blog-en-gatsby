@@ -12,7 +12,6 @@ const BlogPage = ({data}) => {
      {
         data.allMdx.nodes.map((node) => (
           <article key={node.id}>
-             <p>{node.frontmatter.category}</p>
             <h2>
               <Link to={`/blog/${node.frontmatter.slug}`}>
                {node.frontmatter.title}
@@ -31,7 +30,7 @@ const BlogPage = ({data}) => {
 }
 export const query = graphql`
   query {
-    allMdx(filter: {frontmatter: {category: {eq: "blog"}}}) {
+    allMdx{
     nodes {
       frontmatter {
         title
