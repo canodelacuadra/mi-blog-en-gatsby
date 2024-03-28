@@ -2,6 +2,10 @@ import * as React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../../components/layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+// gatsby-browser.js
+import "prismjs/themes/prism-solarizedlight.min.css";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css"
+
 import Seo from '../../components/seo'
 const BlogPost = ({ data, children }) => {
    const image = getImage(data.mdx.frontmatter.hero_image)
